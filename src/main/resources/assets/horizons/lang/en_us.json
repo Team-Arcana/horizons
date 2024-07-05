@@ -1,2 +1,8 @@
 {
+  "itemGroup.horizons": "Horizons",
+
+  "//ITEMS": "",
+  "item.horizons.horizons_icon": "Horizons Icon",
+  "item.horizons.backpack": "Backpack",
+  "container.horizons.backpack": "Backpack"
 }
