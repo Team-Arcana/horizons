@@ -1,5 +1,6 @@
 package net.teamarcana.horizons.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +26,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -46,6 +49,7 @@ import net.teamarcana.horizons.init.HorizonModelLayers;
 import net.teamarcana.horizons.inventory.BackpackInventory;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class BackpackItem extends ArmorItem{
@@ -53,7 +57,7 @@ public class BackpackItem extends ArmorItem{
     protected final Block block;
 
     public BackpackItem(Block block, @Nullable DyeColor color, Properties properties) {
-        super(ArmorMaterials.LEATHER, Type.CHESTPLATE, properties.durability(-1).stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
+        super(ArmorMaterials.LEATHER, Type.CHESTPLATE, properties.durability(-1).stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY).attributes(new ItemAttributeModifiers(List.of(), false)));
         this.color = color;
         this.block = block;
     }
@@ -69,7 +73,9 @@ public class BackpackItem extends ArmorItem{
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack item, EquipmentSlot slot, HumanoidModel<?> properties) {
                 ModelPart backpackModel = Minecraft.getInstance().getEntityModels().bakeLayer(HorizonModelLayers.BACKPACK_LAYER);
-                return new BackpackModel<>(backpackModel);
+                ResourceLocation modelLocation = HorizonModelLayers.BACKPACK_LAYER.getModel();
+                String modelLayer = HorizonModelLayers.BACKPACK_LAYER.getLayer();
+                return new BackpackModel(backpackModel);
             }
         });
     }
@@ -289,4 +295,5 @@ public class BackpackItem extends ArmorItem{
             player.openMenu(new SimpleMenuProvider((id, inventory, p)-> createMenu(id, inventory, p, item), item.getHoverName()));
         }
     }
+
 }
