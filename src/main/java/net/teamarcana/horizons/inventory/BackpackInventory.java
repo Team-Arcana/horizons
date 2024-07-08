@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.teamarcana.horizons.init.HorizonTags;
+import net.teamarcana.horizons.item.BackpackItem;
 
 public class BackpackInventory implements Container {
     protected ItemStack backpack;
@@ -97,7 +98,7 @@ public class BackpackInventory implements Container {
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack item) {
-        return !item.is(HorizonTags.Items.BACKPACK_BLACKLIST);
+        return !item.is(HorizonTags.Items.BACKPACK_BLACKLIST) || !(item.getItem() instanceof BackpackItem);
     }
 
     @Override

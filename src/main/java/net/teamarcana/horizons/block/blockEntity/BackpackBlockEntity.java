@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.teamarcana.horizons.block.BackpackBlock;
 import net.teamarcana.horizons.client.screen.BackpackMenu;
 import net.teamarcana.horizons.init.HorizonBlockEntityTypes;
+import net.teamarcana.horizons.item.BackpackItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.IntStream;
@@ -30,7 +31,6 @@ public class BackpackBlockEntity extends RandomizableContainerBlockEntity implem
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     @Nullable
     private final DyeColor color;
-
 
     public BackpackBlockEntity(@Nullable DyeColor color, BlockPos pos, BlockState state) {
         super(HorizonBlockEntityTypes.BACKPACK.get(), pos, state);
@@ -104,5 +104,4 @@ public class BackpackBlockEntity extends RandomizableContainerBlockEntity implem
     }
 
     public @Nullable DyeColor getColor() { return color; }
-
 }

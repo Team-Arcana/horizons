@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -29,6 +31,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.teamarcana.horizons.block.blockEntity.BackpackBlockEntity;
+import net.teamarcana.horizons.init.HorizonBlocks;
 import net.teamarcana.horizons.init.HorizonItems;
 import net.teamarcana.horizons.item.BackpackItem;
 import org.jetbrains.annotations.Nullable;
@@ -96,6 +99,7 @@ public class BackpackBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         } else if (level.getBlockEntity(pos) instanceof BackpackBlockEntity backpackBlockEntity) {
             player.openMenu(backpackBlockEntity);
+            level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.BLOCKS);
             return InteractionResult.CONSUME;
         } else {
             return InteractionResult.PASS;
@@ -146,6 +150,7 @@ public class BackpackBlock extends BaseEntityBlock {
         BackpackBlockEntity blockEntity = (BackpackBlockEntity) level.getBlockEntity(pos);
         ItemStack backpack = getBackpack(blockEntity.getColor());
         backpack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(blockEntity.getItems()));
+        backpack.set(DataComponents.CUSTOM_NAME, blockEntity.getCustomName());
         return backpack;
     }
     public ItemStack getBackpack(DyeColor color){
@@ -160,6 +165,7 @@ public class BackpackBlock extends BaseEntityBlock {
             if (!level.isClientSide && player.isCreative() && !backpackBlockEntity.isEmpty()) {
                 ItemStack backpack = getBackpack(backpackBlockEntity.getColor());
                 backpack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(backpackBlockEntity.getItems()));
+                backpack.set(DataComponents.CUSTOM_NAME, backpackBlockEntity.getCustomName());
                 ItemEntity itementity = new ItemEntity(
                         level, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, backpack
                 );
@@ -170,5 +176,30 @@ public class BackpackBlock extends BaseEntityBlock {
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    public static Block getBlockByColor(@Nullable DyeColor color) {
+        if (color == null) {
+            return HorizonBlocks.BACKPACK.get();
+        } else {
+            return switch (color) {
+                case WHITE -> HorizonBlocks.WHITE_BACKPACK.get();
+                case ORANGE -> HorizonBlocks.ORANGE_BACKPACK.get();
+                case MAGENTA -> HorizonBlocks.MAGENTA_BACKPACK.get();
+                case LIGHT_BLUE -> HorizonBlocks.LIGHT_BLUE_BACKPACK.get();
+                case YELLOW -> HorizonBlocks.YELLOW_BACKPACK.get();
+                case LIME -> HorizonBlocks.LIME_BACKPACK.get();
+                case PINK -> HorizonBlocks.PINK_BACKPACK.get();
+                case GRAY -> HorizonBlocks.GRAY_BACKPACK.get();
+                case LIGHT_GRAY -> HorizonBlocks.LIGHT_GRAY_BACKPACK.get();
+                case CYAN -> HorizonBlocks.CYAN_BACKPACK.get();
+                case BLUE -> HorizonBlocks.BLUE_BACKPACK.get();
+                case BROWN -> HorizonBlocks.BROWN_BACKPACK.get();
+                case GREEN -> HorizonBlocks.GREEN_BACKPACK.get();
+                case RED -> HorizonBlocks.RED_BACKPACK.get();
+                case BLACK -> HorizonBlocks.BLACK_BACKPACK.get();
+                case PURPLE -> HorizonBlocks.PURPLE_BACKPACK.get();
+            };
+        }
     }
 }

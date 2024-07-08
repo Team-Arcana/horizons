@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "i": {
+      "item": "minecraft:iron_nugget"
+    },
+    "|": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "| |",
+    "LiL",
+    "LLL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "horizons:backpack"
+  }
+}

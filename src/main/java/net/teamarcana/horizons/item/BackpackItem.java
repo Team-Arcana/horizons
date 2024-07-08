@@ -1,22 +1,27 @@
 package net.teamarcana.horizons.item;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -29,12 +34,19 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.teamarcana.horizons.Horizons;
+import net.teamarcana.horizons.client.renderer.BackpackModel;
 import net.teamarcana.horizons.client.screen.BackpackMenu;
+import net.teamarcana.horizons.init.HorizonItems;
+import net.teamarcana.horizons.init.HorizonModelLayers;
 import net.teamarcana.horizons.inventory.BackpackInventory;
 import org.jetbrains.annotations.Nullable;
 
-import static net.teamarcana.horizons.block.BackpackBlock.BACKPACK_TRANSLATION;
+import java.util.function.Consumer;
 
 public class BackpackItem extends ArmorItem{
     protected DyeColor color;
@@ -49,6 +61,23 @@ public class BackpackItem extends ArmorItem{
     public DyeColor getColor() { return color; }
     public Block getBlock() { return block; }
     public BackpackInventory getInventory(ItemStack item){ return new BackpackInventory(item); }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack item, EquipmentSlot slot, HumanoidModel<?> properties) {
+                ModelPart backpackModel = Minecraft.getInstance().getEntityModels().bakeLayer(HorizonModelLayers.BACKPACK_LAYER);
+                return new BackpackModel<>(backpackModel);
+            }
+        });
+    }
+
+    @Override
+    public @Nullable ResourceLocation getArmorTexture(ItemStack item, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+        return color != null ? ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, "textures/item/backpack_equipped_"+color.getName()+".png") : ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, "textures/item/backpack_equipped.png");
+    }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -69,9 +98,7 @@ public class BackpackItem extends ArmorItem{
         ItemStack item = player.getItemInHand(hand);
         boolean isShiftPressed = player.isShiftKeyDown();
         if(!isShiftPressed){
-            if(!level.isClientSide()){
-                player.openMenu(new SimpleMenuProvider((id, inventory, p)-> createMenu(id, inventory, p, item), item.getHoverName()));
-            }
+            openMenu(player, level, item);
         }
         return InteractionResultHolder.sidedSuccess(item, level.isClientSide);
     }
@@ -213,5 +240,53 @@ public class BackpackItem extends ArmorItem{
             }
         }
         return inventory;
+    }
+
+    public static Item getItemByColor(@Nullable DyeColor color) {
+        if (color == null) {
+            return HorizonItems.BACKPACK.get();
+        } else {
+            return switch (color) {
+                case WHITE -> HorizonItems.WHITE_BACKPACK.get();
+                case ORANGE -> HorizonItems.ORANGE_BACKPACK.get();
+                case MAGENTA -> HorizonItems.MAGENTA_BACKPACK.get();
+                case LIGHT_BLUE -> HorizonItems.LIGHT_BLUE_BACKPACK.get();
+                case YELLOW -> HorizonItems.YELLOW_BACKPACK.get();
+                case LIME -> HorizonItems.LIME_BACKPACK.get();
+                case PINK -> HorizonItems.PINK_BACKPACK.get();
+                case GRAY -> HorizonItems.GRAY_BACKPACK.get();
+                case LIGHT_GRAY -> HorizonItems.LIGHT_GRAY_BACKPACK.get();
+                case CYAN -> HorizonItems.CYAN_BACKPACK.get();
+                case BLUE -> HorizonItems.BLUE_BACKPACK.get();
+                case BROWN -> HorizonItems.BROWN_BACKPACK.get();
+                case GREEN -> HorizonItems.GREEN_BACKPACK.get();
+                case RED -> HorizonItems.RED_BACKPACK.get();
+                case BLACK -> HorizonItems.BLACK_BACKPACK.get();
+                case PURPLE -> HorizonItems.PURPLE_BACKPACK.get();
+            };
+        }
+    }
+
+    @Override
+    public boolean canFitInsideContainerItems() {
+        NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+        ItemContainerContents container = this.components().get(DataComponents.CONTAINER);
+        container.copyInto(items);
+        return !(container.stream().toList().isEmpty()) && super.canFitInsideContainerItems();
+    }
+
+    @Override
+    public void inventoryTick(ItemStack item, Level level, Entity entity, int slot, boolean isSelected) {
+        if(entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST) == item){
+            if(Horizons.OPEN_BACKPACK.isDown()){ openMenu(player, level, item); }
+        }
+        super.inventoryTick(item, level, entity, slot, isSelected);
+    }
+
+    public void openMenu(Player player, Level level, ItemStack item){
+        if(!level.isClientSide()){
+            player.level().playSound(null, player.getOnPos(), SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.BLOCKS);
+            player.openMenu(new SimpleMenuProvider((id, inventory, p)-> createMenu(id, inventory, p, item), item.getHoverName()));
+        }
     }
 }

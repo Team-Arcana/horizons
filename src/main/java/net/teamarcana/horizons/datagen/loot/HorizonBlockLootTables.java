@@ -7,6 +7,7 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.teamarcana.horizons.block.BackpackBlock;
 import net.teamarcana.horizons.init.HorizonBlocks;
 import net.teamarcana.horizons.init.HorizonItems;
 
@@ -109,24 +111,46 @@ public class HorizonBlockLootTables extends BlockLootSubProvider {
     }
 
     protected LootTable.Builder createBackpackLoot(Block block) {
-        return LootTable.lootTable()
-                .withPool(
-                        this.applyExplosionCondition(
-                                block,
-                                LootPool.lootPool()
-                                        .setRolls(ConstantValue.exactly(1.0F))
-                                        .add(
-                                                LootItem.lootTableItem(block)
-                                                        .apply(
-                                                                CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
-                                                                        .include(DataComponents.CUSTOM_NAME)
-                                                                        .include(DataComponents.CONTAINER)
-                                                                        .include(DataComponents.LOCK)
-                                                                        .include(DataComponents.CONTAINER_LOOT)
-                                                        )
-                                        )
-                        )
-                );
+        if(block instanceof BackpackBlock backpackBlock){
+            ItemStack backpack = backpackBlock.getBackpack(backpackBlock.getColor());
+            return LootTable.lootTable()
+                    .withPool(
+                            this.applyExplosionCondition(
+                                    block,
+                                    LootPool.lootPool()
+                                            .setRolls(ConstantValue.exactly(1.0F))
+                                            .add(
+                                                    LootItem.lootTableItem(backpack.getItem())
+                                                            .apply(
+                                                                    CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                                                            .include(DataComponents.CUSTOM_NAME)
+                                                                            .include(DataComponents.CONTAINER)
+                                                                            .include(DataComponents.LOCK)
+                                                                            .include(DataComponents.CONTAINER_LOOT)
+                                                            )
+                                            )
+                            )
+                    );
+        } else{
+            return LootTable.lootTable()
+                    .withPool(
+                            this.applyExplosionCondition(
+                                    block,
+                                    LootPool.lootPool()
+                                            .setRolls(ConstantValue.exactly(1.0F))
+                                            .add(
+                                                    LootItem.lootTableItem(block)
+                                                            .apply(
+                                                                    CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                                                            .include(DataComponents.CUSTOM_NAME)
+                                                                            .include(DataComponents.CONTAINER)
+                                                                            .include(DataComponents.LOCK)
+                                                                            .include(DataComponents.CONTAINER_LOOT)
+                                                            )
+                                            )
+                            )
+                    );
+        }
     }
     protected void add(Block block, Function<Block, LootTable.Builder> factory) {
         this.add(block, factory.apply(block));

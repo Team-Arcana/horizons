@@ -37,5 +37,7 @@
   "item.horizons.purple_backpack": "Purple Backpack",
   "item.horizons.magenta_backpack": "Magenta Backpack",
   "item.horizons.pink_backpack": "Pink Backpack",
-  "item.horizons.rose_backpack": "Rose Backpack"
+  "item.horizons.rose_backpack": "Rose Backpack",
+  "key.categories.horizons": "Horizons",
+  "key.horizons.open_backpack": "Open Backpack"
 }

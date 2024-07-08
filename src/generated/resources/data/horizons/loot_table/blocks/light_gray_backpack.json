@@ -23,7 +23,7 @@
               "source": "block_entity"
             }
           ],
-          "name": "minecraft:air"
+          "name": "horizons:light_gray_backpack"
         }
       ],
       "rolls": 1.0

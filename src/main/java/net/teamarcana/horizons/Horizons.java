@@ -1,6 +1,11 @@
 package net.teamarcana.horizons;
-import net.minecraft.client.gui.screens.MenuScreens;
+import com.llamalad7.mixinextras.lib.apache.commons.ArrayUtils;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.teamarcana.horizons.client.renderer.BackpackModel;
 import net.teamarcana.horizons.client.screen.BackpackScreen;
 import net.teamarcana.horizons.init.*;
 import org.slf4j.Logger;
@@ -27,6 +32,8 @@ public class Horizons
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    public static KeyMapping OPEN_BACKPACK = new KeyMapping("key.horizons.open_backpack", InputConstants.KEY_B, "key.categories.horizons");
+
     public Horizons(IEventBus modEventBus, ModContainer modContainer)
     {
         // Register the commonSetup method for modloading
@@ -36,6 +43,9 @@ public class Horizons
         HorizonItems.register(modEventBus);
         HorizonBlockEntityTypes.register(modEventBus);
         HorizonMenuTypes.register(modEventBus);
+        HorizonRecipeSerializers.register(modEventBus);
+
+        registerKeyBindings();
 
         HorizonCreativeTabs.register(modEventBus);
 
@@ -74,5 +84,14 @@ public class Horizons
         public static void menuScreens(RegisterMenuScreensEvent event){
             event.register(HorizonMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
         }
+
+        @SubscribeEvent
+        public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event){
+            event.registerLayerDefinition(HorizonModelLayers.BACKPACK_LAYER, BackpackModel::createArmorLayer);
+        }
+    }
+
+    public static void registerKeyBindings(){
+        Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings,OPEN_BACKPACK);
     }
 }
