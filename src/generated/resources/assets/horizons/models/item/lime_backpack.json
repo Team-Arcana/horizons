@@ -1,0 +1,24 @@
+{
+  "base": {
+    "parent": "horizons:item/backpack_model",
+    "textures": {
+      "layer0": "horizons:item/backpack_equipped_lime"
+    }
+  },
+  "gui_light": "front",
+  "loader": "neoforge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "horizons:item/backpack_lime"
+      }
+    },
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "horizons:item/backpack_lime"
+      }
+    }
+  }
+}

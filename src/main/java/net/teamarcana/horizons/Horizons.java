@@ -1,4 +1,7 @@
 package net.teamarcana.horizons;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.teamarcana.horizons.client.screen.BackpackScreen;
 import net.teamarcana.horizons.init.*;
 import org.slf4j.Logger;
 
@@ -31,6 +34,8 @@ public class Horizons
 
         HorizonBlocks.register(modEventBus);
         HorizonItems.register(modEventBus);
+        HorizonBlockEntityTypes.register(modEventBus);
+        HorizonMenuTypes.register(modEventBus);
 
         HorizonCreativeTabs.register(modEventBus);
 
@@ -63,6 +68,11 @@ public class Horizons
             // Some client setup code
             //LOGGER.info("HELLO FROM CLIENT SETUP");
             //LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+
+        @SubscribeEvent
+        public static void menuScreens(RegisterMenuScreensEvent event){
+            event.register(HorizonMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
         }
     }
 }

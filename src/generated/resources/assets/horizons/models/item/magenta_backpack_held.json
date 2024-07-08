@@ -1,0 +1,6 @@
+{
+  "parent": "horizons:item/backpack_model",
+  "textures": {
+    "layer0": "horizons:item/backpack_equipped_magenta"
+  }
+}

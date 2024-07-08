@@ -14,7 +14,7 @@ public class HorizonMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(Registries.MENU, Horizons.MOD_ID);
 
-    public static final Supplier<MenuType<BackpackMenu>> BACKPACK_MENU = MENUS.register("backpack", () -> new MenuType(BackpackMenu::new, FeatureFlags.DEFAULT_FLAGS));
+    public static final Supplier<MenuType<BackpackMenu>> BACKPACK_MENU = MENUS.register("backpack", () -> new MenuType<>(BackpackMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

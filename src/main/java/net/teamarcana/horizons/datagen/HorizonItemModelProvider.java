@@ -22,6 +22,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.teamarcana.horizons.Horizons;
 import net.teamarcana.horizons.init.HorizonItems;
 import net.teamarcana.horizons.init.HorizonModelOverrides;
+import net.teamarcana.horizons.item.BackpackItem;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
@@ -48,6 +49,25 @@ public class HorizonItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         simpleItem(HorizonItems.CREATIVE_ICON);
+
+        // BACKPACKS
+        backpackItem(HorizonItems.BACKPACK.get());
+        backpackItem(HorizonItems.WHITE_BACKPACK.get());
+        backpackItem(HorizonItems.LIGHT_GRAY_BACKPACK.get());
+        backpackItem(HorizonItems.GRAY_BACKPACK.get());
+        backpackItem(HorizonItems.BLACK_BACKPACK.get());
+        backpackItem(HorizonItems.BROWN_BACKPACK.get());
+        backpackItem(HorizonItems.RED_BACKPACK.get());
+        backpackItem(HorizonItems.ORANGE_BACKPACK.get());
+        backpackItem(HorizonItems.YELLOW_BACKPACK.get());
+        backpackItem(HorizonItems.LIME_BACKPACK.get());
+        backpackItem(HorizonItems.GREEN_BACKPACK.get());
+        backpackItem(HorizonItems.CYAN_BACKPACK.get());
+        backpackItem(HorizonItems.LIGHT_BLUE_BACKPACK.get());
+        backpackItem(HorizonItems.BLUE_BACKPACK.get());
+        backpackItem(HorizonItems.PURPLE_BACKPACK.get());
+        backpackItem(HorizonItems.MAGENTA_BACKPACK.get());
+        backpackItem(HorizonItems.PINK_BACKPACK.get());
     }
 
     // METHODS
@@ -123,5 +143,42 @@ public class HorizonItemModelProvider extends ItemModelProvider {
         return getBuilder(item.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/handheld"))
                 .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
+    }
+
+    public ItemModelBuilder handheldItemWithExistingModel(Item item, String existingModelPath){
+        return handheldItemWithExistingModel(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)), existingModelPath);
+    }
+    public ItemModelBuilder handheldItemWithExistingModel(ResourceLocation item, String existingModelPath){
+        ItemModelBuilder heldModel = heldItemWithExistingModel(item, existingModelPath);
+        ItemModelBuilder inventoryModel = inventoryItem(item);
+
+        return getBuilder(String.valueOf(item)).customLoader(SeparateTransformsModelBuilder::begin)
+                .base(heldModel)
+                .perspective(ItemDisplayContext.GUI, inventoryModel)
+                .perspective(ItemDisplayContext.FIXED, inventoryModel).end().guiLight(BlockModel.GuiLight.FRONT);
+    }
+    public ItemModelBuilder inventoryItem(ResourceLocation item) {
+        return withExistingParent(item + "_inventory",
+                "item/handheld")
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
+    }
+    public ItemModelBuilder heldItemWithExistingModel(ResourceLocation item, String existingModelPath) {
+        return withExistingParent(item + "_held",
+                existingModelPath)
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath() + "_held"));
+    }
+    public ItemModelBuilder backpackItem(BackpackItem item){
+        return item.getColor() != null ? backpackItem(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)), "_" + item.getColor().getName()) : backpackItem(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)), "");
+    }
+    public ItemModelBuilder backpackItem(ResourceLocation item, String dyeColor){
+        ItemModelBuilder heldModel = withExistingParent(item + "_held", "horizons:item/backpack_model").texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(item.getNamespace(), String.format("item/backpack_equipped%s", dyeColor)));
+        ItemModelBuilder inventoryModel = withExistingParent(item + "_inventory", "item/handheld").texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(item.getNamespace(), String.format("item/backpack%s", dyeColor)));
+
+        return getBuilder(String.valueOf(item)).customLoader(SeparateTransformsModelBuilder::begin)
+                .base(heldModel)
+                .perspective(ItemDisplayContext.GUI, inventoryModel)
+                .perspective(ItemDisplayContext.FIXED, inventoryModel).end().guiLight(BlockModel.GuiLight.FRONT);
     }
 }

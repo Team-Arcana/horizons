@@ -23,6 +23,22 @@ public class HorizonCreativeTabs {
             .icon(() -> HorizonItems.CREATIVE_ICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(HorizonItems.BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.WHITE_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.LIGHT_GRAY_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.GRAY_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.BLACK_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.BROWN_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.RED_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.ORANGE_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.YELLOW_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.LIME_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.GREEN_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.CYAN_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.LIGHT_BLUE_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.BLUE_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.PURPLE_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.MAGENTA_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.PINK_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             }).build());
 
 

@@ -16,12 +16,12 @@ public class BackpackMenu extends AbstractContainerMenu {
     private final Container container;
 
     public BackpackMenu(int containerId, Inventory playerInventory) {
-        this(containerId, playerInventory, new SimpleContainer(27));
+        this(containerId, playerInventory, new SimpleContainer(CONTAINER_SIZE));
     }
 
     public BackpackMenu(int containerId, Inventory playerInventory, Container container) {
         super(HorizonMenuTypes.BACKPACK_MENU.get(), containerId);
-        checkContainerSize(container, 27);
+        checkContainerSize(container, CONTAINER_SIZE);
         this.container = container;
 
         int i = 3;

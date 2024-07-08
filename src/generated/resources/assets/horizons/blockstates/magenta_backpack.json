@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "horizons:block/magenta_backpack",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "horizons:block/magenta_backpack"
+    },
+    "facing=south": {
+      "model": "horizons:block/magenta_backpack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "horizons:block/magenta_backpack",
+      "y": 270
+    }
+  }
+}

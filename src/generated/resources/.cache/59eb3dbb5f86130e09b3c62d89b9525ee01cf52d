@@ -1,1 +1,18 @@
-// 1.21	2024-07-05T14:27:54.1652715	Loot Tables
+// 1.21	2024-07-08T09:21:13.7330949	Loot Tables
+d1ba7fd4526dbeda437852405a0bafd12431ed9e data/horizons/loot_table/blocks/backpack.json
+63cd26e232acbf79ae97a5bdaefa80547d2825c8 data/horizons/loot_table/blocks/black_backpack.json
+ab7c0dd3bd39615fc83f21fc9cd4bf2f37dab9ed data/horizons/loot_table/blocks/blue_backpack.json
+d28b7427d4bd7f3852a8021f4d6442c2eb61b4f7 data/horizons/loot_table/blocks/brown_backpack.json
+ae59e3e40aa4e8118de164c751555cb5ac1fd22a data/horizons/loot_table/blocks/cyan_backpack.json
+b93e3e505bc3e53d4df9b1fbe3edb3c1e2dba68c data/horizons/loot_table/blocks/gray_backpack.json
+6fcd38ce61a1555a3b7b6c13233b8ece8618d98a data/horizons/loot_table/blocks/green_backpack.json
+86d2bfe8e0fc2933b06cabda987b670c1cef5d85 data/horizons/loot_table/blocks/light_blue_backpack.json
+b8f16b5498148006ac4f670a4f475464ddaa35c5 data/horizons/loot_table/blocks/light_gray_backpack.json
+85af4aeffd5e9827ffb1a7bace1c147653218bfc data/horizons/loot_table/blocks/lime_backpack.json
+13e213d8906c61cddea43cbed429b5ba00cafa49 data/horizons/loot_table/blocks/magenta_backpack.json
+cd18c65000f5d5a7165050ce0fda4a76c98a7271 data/horizons/loot_table/blocks/orange_backpack.json
+ab8bb70e00f228d3a19d2a20b3979306204af1d3 data/horizons/loot_table/blocks/pink_backpack.json
+d9307469a4253dbb11564a49ded61a03e4facc80 data/horizons/loot_table/blocks/purple_backpack.json
+82da77cf9b4253b8fe546977aab6594e7ff09ac8 data/horizons/loot_table/blocks/red_backpack.json
+07b930b49547ddf2c6e4a0ed51af04051bfc7117 data/horizons/loot_table/blocks/white_backpack.json
+61ab513b4e70b25d7dfeed09c1b94dcf75c154d8 data/horizons/loot_table/blocks/yellow_backpack.json
