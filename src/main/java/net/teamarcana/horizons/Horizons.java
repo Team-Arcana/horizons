@@ -4,11 +4,22 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.teamarcana.horizons.compat.curios.BackpackCurio;
+import net.teamarcana.horizons.compat.curios.client.renderer.BackpackCurioModelRenderer;
 import net.teamarcana.horizons.client.renderer.BackpackModel;
 import net.teamarcana.horizons.client.screen.BackpackScreen;
 import net.teamarcana.horizons.init.*;
+import net.teamarcana.horizons.item.BackpackItem;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -23,6 +34,10 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Horizons.MOD_ID)
@@ -32,6 +47,8 @@ public class Horizons
     public static final String MOD_ID = "horizons";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    protected boolean isCuriosAPIHere;
 
     public static KeyMapping OPEN_BACKPACK = new KeyMapping("key.horizons.open_backpack", InputConstants.KEY_B, "key.categories.horizons");
 
@@ -50,6 +67,11 @@ public class Horizons
 
         HorizonCreativeTabs.register(modEventBus);
 
+        if(isCuriosAPIHere()){
+            modEventBus.addListener(this::registerCurioCapabilities);
+            modEventBus.addListener(this::clientSetupWithCurios);
+        }
+
         NeoForge.EVENT_BUS.register(this);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
@@ -58,6 +80,7 @@ public class Horizons
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+        isCuriosAPIHere = ModList.get().isLoaded("curios");
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -93,9 +116,31 @@ public class Horizons
 
     }
 
+    // for curios compat
+    public void registerCurioCapabilities(final RegisterCapabilitiesEvent event) {
+        for(Item item : BuiltInRegistries.ITEM){
+            if(item instanceof BackpackItem){
+                event.registerItem(CuriosCapability.ITEM, (stack, context) -> new BackpackCurio(stack), item);
+            }
+        }
+    }
+
+    public void clientSetupWithCurios(FMLClientSetupEvent event){
+        for(Item item : BuiltInRegistries.ITEM){
+            if(item instanceof BackpackItem){
+                CuriosRendererRegistry.register(item, BackpackCurioModelRenderer::new);
+            }
+        }
+    }
+
+
     public static void registerKeyBindings(){
         if(Minecraft.getInstance() != null){
             Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings,OPEN_BACKPACK);
         }
+    }
+
+    public boolean isCuriosAPIHere(){
+        return isCuriosAPIHere;
     }
 }

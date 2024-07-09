@@ -3,20 +3,14 @@ package net.teamarcana.horizons.client.renderer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.teamarcana.horizons.init.HorizonModelLayers;
 
 public class BackpackModel extends HumanoidModel{
 	private final ModelPart backpack;
 	private final ModelPart top;
-
-	//Minecraft.getInstance().getEntityModels().bakeLayer(HorizonModelLayers.BACKPACK)
-
-	public static final BackpackModel INSTANCE =  new BackpackModel(createBackpackLayer(CubeDeformation.NONE).bakeRoot());
 
 	public BackpackModel(ModelPart root) {
         super(root);
