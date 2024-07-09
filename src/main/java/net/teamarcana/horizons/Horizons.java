@@ -9,7 +9,6 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.teamarcana.horizons.client.renderer.BackpackModel;
 import net.teamarcana.horizons.client.screen.BackpackScreen;
 import net.teamarcana.horizons.init.*;
-import net.teamarcana.horizons.item.CustomArmorRenderProperties;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -93,8 +92,6 @@ public class Horizons
         }
 
     }
-
-    public static Object getArmorRenderProperties(){ return new CustomArmorRenderProperties(); }
 
     public static void registerKeyBindings(){
         if(Minecraft.getInstance() != null){
