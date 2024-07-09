@@ -1,0 +1,7 @@
+{
+  "parent": "horizons:block/backpack_block",
+  "textures": {
+    "layer0": "horizons:item/backpack_equipped",
+    "particle": "horizons:item/backpack_equipped"
+  }
+}

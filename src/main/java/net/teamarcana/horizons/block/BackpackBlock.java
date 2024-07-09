@@ -17,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -28,8 +29,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.teamarcana.horizons.block.blockEntity.BackpackBlockEntity;
 import net.teamarcana.horizons.init.HorizonBlocks;
 import net.teamarcana.horizons.init.HorizonItems;
@@ -39,7 +40,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class BackpackBlock extends BaseEntityBlock {
-    public static final VoxelShape SHAPE = Block.box(4, 0, 4, 11, 10, 7);
+    public static final VoxelShape shapeNorth = Block.box(4, 0, 4, 12, 10, 8);
+    public static final VoxelShape shapeEast = Block.box(8, 0, 4, 12, 10, 12);
+    public static final VoxelShape shapeSouth = Block.box(4, 0, 8, 12, 10, 12);
+    public static final VoxelShape shapeWest = Block.box(4, 0, 4, 8, 10, 12);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final Component BACKPACK_TRANSLATION = Component.translatable("container.horizons.backpack");
     private static final Component UNKNOWN_CONTENTS = Component.translatable("container.horizons.backpack.unknownContents");
@@ -70,6 +74,23 @@ public class BackpackBlock extends BaseEntityBlock {
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if(getDirectionFacing(state) == Direction.NORTH ){
+            return shapeNorth;
+        }
+        if(getDirectionFacing(state) == Direction.EAST){
+            return shapeEast;
+        }
+        if(getDirectionFacing(state) == Direction.SOUTH ){
+            return shapeSouth;
+        }
+        if(getDirectionFacing(state) == Direction.WEST){
+            return shapeWest;
+        }
+        return shapeNorth;
     }
 
     @Nullable

@@ -3,11 +3,13 @@ import com.llamalad7.mixinextras.lib.apache.commons.ArrayUtils;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.teamarcana.horizons.client.renderer.BackpackModel;
 import net.teamarcana.horizons.client.screen.BackpackScreen;
 import net.teamarcana.horizons.init.*;
+import net.teamarcana.horizons.item.CustomArmorRenderProperties;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -87,11 +89,16 @@ public class Horizons
 
         @SubscribeEvent
         public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event){
-            event.registerLayerDefinition(HorizonModelLayers.BACKPACK_LAYER, BackpackModel::createArmorLayer);
+            event.registerLayerDefinition(HorizonModelLayers.BACKPACK, ()->  BackpackModel.createBackpackLayer(CubeDeformation.NONE));
         }
+
     }
 
+    public static Object getArmorRenderProperties(){ return new CustomArmorRenderProperties(); }
+
     public static void registerKeyBindings(){
-        Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings,OPEN_BACKPACK);
+        if(Minecraft.getInstance() != null){
+            Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings,OPEN_BACKPACK);
+        }
     }
 }
