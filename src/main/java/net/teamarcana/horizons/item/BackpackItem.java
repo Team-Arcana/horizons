@@ -50,6 +50,7 @@ import java.util.function.Consumer;
 public class BackpackItem extends ArmorItem{
     protected DyeColor color;
     protected final Block block;
+    private BackpackModel BACKPACK;
 
     public BackpackItem(Block block, @Nullable DyeColor color, Properties properties) {
         super(ArmorMaterials.LEATHER, Type.CHESTPLATE, properties.durability(-1).stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY).attributes(new ItemAttributeModifiers(List.of(), false)));
@@ -66,8 +67,6 @@ public class BackpackItem extends ArmorItem{
         consumer.accept(new IClientItemExtensions() {
             protected boolean init = false;
 
-            private BackpackModel BACKPACK;
-
             protected void init(){
                 init = true;
                 BACKPACK = new BackpackModel(Minecraft.getInstance().getEntityModels().bakeLayer(HorizonModelLayers.BACKPACK));
@@ -80,6 +79,7 @@ public class BackpackItem extends ArmorItem{
             }
         });
     }
+    public BackpackModel getBackpack(){ return BACKPACK; }
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack item, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {

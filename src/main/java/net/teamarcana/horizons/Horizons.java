@@ -56,6 +56,8 @@ public class Horizons
     {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerCurioCapabilities);
+        modEventBus.addListener(this::clientSetupWithCurios);
 
         HorizonBlocks.register(modEventBus);
         HorizonItems.register(modEventBus);
@@ -66,11 +68,6 @@ public class Horizons
         registerKeyBindings();
 
         HorizonCreativeTabs.register(modEventBus);
-
-        if(isCuriosAPIHere()){
-            modEventBus.addListener(this::registerCurioCapabilities);
-            modEventBus.addListener(this::clientSetupWithCurios);
-        }
 
         NeoForge.EVENT_BUS.register(this);
 
@@ -116,27 +113,30 @@ public class Horizons
 
     }
 
+    public static void registerKeyBindings(){
+        if(Minecraft.getInstance() != null){
+            Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings,OPEN_BACKPACK);
+        }
+    }
+
     // for curios compat
     public void registerCurioCapabilities(final RegisterCapabilitiesEvent event) {
-        for(Item item : BuiltInRegistries.ITEM){
-            if(item instanceof BackpackItem){
-                event.registerItem(CuriosCapability.ITEM, (stack, context) -> new BackpackCurio(stack), item);
+        if(ModList.get().isLoaded("curios")){
+            for(Item item : BuiltInRegistries.ITEM){
+                if(item instanceof BackpackItem){
+                    event.registerItem(CuriosCapability.ITEM, (stack, context) -> new BackpackCurio(stack), item);
+                }
             }
         }
     }
 
     public void clientSetupWithCurios(FMLClientSetupEvent event){
-        for(Item item : BuiltInRegistries.ITEM){
-            if(item instanceof BackpackItem){
-                CuriosRendererRegistry.register(item, BackpackCurioModelRenderer::new);
+        if(ModList.get().isLoaded("curios")){
+            for(Item item : BuiltInRegistries.ITEM){
+                if(item instanceof BackpackItem){
+                    CuriosRendererRegistry.register(item, BackpackCurioModelRenderer::new);
+                }
             }
-        }
-    }
-
-
-    public static void registerKeyBindings(){
-        if(Minecraft.getInstance() != null){
-            Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings,OPEN_BACKPACK);
         }
     }
 

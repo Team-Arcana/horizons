@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.teamarcana.horizons.Horizons;
+import net.teamarcana.horizons.compat.curios.CurioTags;
 import net.teamarcana.horizons.init.HorizonItems;
 import net.teamarcana.horizons.init.HorizonTags;
 import org.jetbrains.annotations.Nullable;
@@ -59,5 +60,8 @@ public class HorizonItemTagProvider extends ItemTagsProvider {
                 Items.MAGENTA_SHULKER_BOX,
                 Items.PINK_SHULKER_BOX
         );
+
+        // specifically so that backpacks can be equipped on the back slot for curios
+        tag(CurioTags.CURIO_BACK).addTag(HorizonTags.Items.BACKPACK);
     }
 }
