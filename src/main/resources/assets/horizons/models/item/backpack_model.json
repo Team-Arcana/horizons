@@ -8,9 +8,9 @@
 	},
 	"elements": [
 		{
-			"from": [4, 1, 8],
-			"to": [12, 9, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5, 10]},
+			"from": [4, 3, 8],
+			"to": [12, 11, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 10]},
 			"faces": {
 				"north": {"uv": [7, 9, 9, 11], "texture": "#layer0"},
 				"east": {"uv": [6, 9, 7, 11], "texture": "#layer0"},
@@ -90,6 +90,10 @@
 		"gui": {
 			"rotation": [30, 225, 0],
 			"translation": [0, 3, 0]
+		},
+		"head": {
+			"rotation": [0, 180, 0],
+			"translation": [0, 13, 7]
 		},
 		"fixed": {
 			"translation": [0, 3, 1]

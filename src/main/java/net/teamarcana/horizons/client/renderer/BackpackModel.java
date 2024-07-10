@@ -7,6 +7,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.Entity;
 
 public class BackpackModel extends HumanoidModel{
 	private final ModelPart backpack;
@@ -14,7 +15,6 @@ public class BackpackModel extends HumanoidModel{
 
 	public BackpackModel(ModelPart root) {
         super(root);
-
 		this.backpack = root.getChild("body").getChild("backpack");
 		this.top = root.getChild("body").getChild("backpack").getChild("backpack_top");
 	}
@@ -46,4 +46,6 @@ public class BackpackModel extends HumanoidModel{
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int i) {
 		backpack.render(poseStack, vertexConsumer, packedLight, packedOverlay, i);
 	}
+
+
 }

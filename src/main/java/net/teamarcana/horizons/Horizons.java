@@ -134,7 +134,7 @@ public class Horizons
         if(ModList.get().isLoaded("curios")){
             for(Item item : BuiltInRegistries.ITEM){
                 if(item instanceof BackpackItem){
-                    CuriosRendererRegistry.register(item, BackpackCurioModelRenderer::new);
+                    CuriosRendererRegistry.register(item, () -> new BackpackCurioModelRenderer(Minecraft.getInstance().getEntityModels().bakeLayer(HorizonModelLayers.BACKPACK)));
                 }
             }
         }
