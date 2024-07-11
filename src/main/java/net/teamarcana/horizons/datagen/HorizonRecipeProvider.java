@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
+import net.teamarcana.battlements.datagen.BattleRecipeProvider;
 import net.teamarcana.battlements.init.BattleItems;
 import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 import net.teamarcana.horizons.init.HorizonItems;
@@ -84,7 +85,7 @@ public class HorizonRecipeProvider extends RecipeProvider {
         paxelRecipe(BattleCompatItems.ENDERIUM_PAXEL.get(), Ingredient.of(BattleItems.ENDERIUM_PICKAXE), Ingredient.of(BattleItems.ENDERIUM_AXE), Ingredient.of(BattleItems.ENDERIUM_SHOVEL), BattleItems.ENDERIUM_INGOT, output);
 
         netheriteSmithing(output, HorizonItems.DIAMOND_PAXEL.get(), RecipeCategory.TOOLS, HorizonItems.NETHERITE_PAXEL.get());
-        netheriteSmithing(output, HorizonItems.DIAMOND_PAXEL.get(), RecipeCategory.TOOLS, BattleCompatItems.ENDERIUM_PAXEL.get());
+        BattleRecipeProvider.enderiumSmithing(output, HorizonItems.DIAMOND_PAXEL.get(), RecipeCategory.TOOLS, BattleCompatItems.ENDERIUM_PAXEL.get());
     }
 
     public static void smokingRecipe(RecipeOutput output,  List<ItemLike> pIngredients,  RecipeCategory pCategory,  ItemLike pResult,  float pExperience,  int cookingTime,  String pGroup) {
