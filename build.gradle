@@ -24,6 +24,9 @@ repositories {
         name = "OctoStudios"
         url = uri("https://maven.octo-studios.com/releases")
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 base {
@@ -126,6 +129,8 @@ dependencies {
 
     // Curios API
     implementation("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+    // Battlements
+    implementation("net.teamarcana.battlements:Battlements-1.21-neoforge:${battlements_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

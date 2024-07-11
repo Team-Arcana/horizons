@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "battlements:steel_axe"
+    },
+    "P": {
+      "item": "battlements:steel_pickaxe"
+    },
+    "S": {
+      "item": "battlements:steel_shovel"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "ASP",
+    " | ",
+    " | "
+  ],
+  "result": {
+    "count": 1,
+    "id": "horizons:steel_paxel"
+  }
+}

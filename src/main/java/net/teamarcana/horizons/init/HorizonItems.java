@@ -1,6 +1,4 @@
 package net.teamarcana.horizons.init;
-
-import net.minecraft.core.Holder;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
@@ -11,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.teamarcana.horizons.Horizons;
 import net.teamarcana.horizons.block.BackpackBlock;
 import net.teamarcana.horizons.item.BackpackItem;
+import net.teamarcana.horizons.item.PaxelItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -22,7 +21,14 @@ public class HorizonItems {
     public static final DeferredItem<Item> CREATIVE_ICON = ITEMS.registerSimpleItem("horizons_icon", new Item.Properties().stacksTo(1));
 
     // NEW ITEMS
-    //public static final DeferredItem<Item> BACKPACK = ITEMS.registerSimpleItem("backpack", new Item.Properties().stacksTo(1));
+
+    // PAXELS
+    public static final DeferredItem<PaxelItem> WOODEN_PAXEL = ITEMS.register("wooden_paxel", ()-> new PaxelItem(Tiers.WOOD, 6.0F, -3.2F, new Item.Properties()));
+    public static final DeferredItem<PaxelItem> STONE_PAXEL = ITEMS.register("stone_paxel", ()-> new PaxelItem(Tiers.STONE, 7.0F, -3.2F, new Item.Properties()));
+    public static final DeferredItem<PaxelItem> IRON_PAXEL = ITEMS.register("iron_paxel", ()-> new PaxelItem(Tiers.IRON, 6.0F, -3.1F, new Item.Properties()));
+    public static final DeferredItem<PaxelItem> GOLDEN_PAXEL = ITEMS.register("golden_paxel", ()-> new PaxelItem(Tiers.GOLD, 6.0F, -3.0F, new Item.Properties()));
+    public static final DeferredItem<PaxelItem> DIAMOND_PAXEL = ITEMS.register("diamond_paxel", ()-> new PaxelItem(Tiers.DIAMOND, 5.0F, -3.0F, new Item.Properties()));
+    public static final DeferredItem<PaxelItem> NETHERITE_PAXEL = ITEMS.register("netherite_paxel", ()-> new PaxelItem(Tiers.NETHERITE, 5.0F, -3.0F, new Item.Properties()));
 
     // BACKPACKS
     public static final DeferredItem<BackpackItem> BACKPACK = registerBackpackItem(HorizonBlocks.BACKPACK, null);

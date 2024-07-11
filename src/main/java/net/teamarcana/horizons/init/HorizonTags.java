@@ -11,6 +11,7 @@ public class HorizonTags {
     public static class Blocks{
         public static TagKey<Block> BACKPACK_BLACKLIST = tag("block/backpack_blacklist");
         public static TagKey<Block> BACKPACK = tag("block/backpack");
+        public static TagKey<Block> PAXEL_MINING = tag("block/mineable_with_paxel");
 
         private static TagKey<Block> tag(String name){
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, name));

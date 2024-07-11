@@ -13,6 +13,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 import net.teamarcana.horizons.compat.curios.BackpackCurio;
 import net.teamarcana.horizons.compat.curios.client.renderer.BackpackCurioModelRenderer;
 import net.teamarcana.horizons.client.renderer.BackpackModel;
@@ -49,6 +50,7 @@ public class Horizons
     public static final Logger LOGGER = LogUtils.getLogger();
 
     protected boolean isCuriosAPIHere;
+    protected static boolean isBattlementsHere;
 
     public static KeyMapping OPEN_BACKPACK = new KeyMapping("key.horizons.open_backpack", InputConstants.KEY_B, "key.categories.horizons");
 
@@ -71,6 +73,10 @@ public class Horizons
 
         NeoForge.EVENT_BUS.register(this);
 
+        if(ModList.get().isLoaded("battlements")){
+            BattleCompatItems.register(modEventBus);
+        }
+
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -78,6 +84,7 @@ public class Horizons
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         isCuriosAPIHere = ModList.get().isLoaded("curios");
+        isBattlementsHere = ModList.get().isLoaded("battlements");
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -142,5 +149,8 @@ public class Horizons
 
     public boolean isCuriosAPIHere(){
         return isCuriosAPIHere;
+    }
+    public static boolean isBattlementsHere(){
+        return isBattlementsHere;
     }
 }

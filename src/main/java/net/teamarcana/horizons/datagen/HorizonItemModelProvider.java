@@ -20,6 +20,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.teamarcana.horizons.Horizons;
+import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 import net.teamarcana.horizons.init.HorizonItems;
 import net.teamarcana.horizons.init.HorizonModelOverrides;
 import net.teamarcana.horizons.item.BackpackItem;
@@ -68,6 +69,16 @@ public class HorizonItemModelProvider extends ItemModelProvider {
         backpackItem(HorizonItems.PURPLE_BACKPACK.get());
         backpackItem(HorizonItems.MAGENTA_BACKPACK.get());
         backpackItem(HorizonItems.PINK_BACKPACK.get());
+
+        // paxels
+        handheldItem(HorizonItems.WOODEN_PAXEL.get());
+        handheldItem(HorizonItems.STONE_PAXEL.get());
+        handheldItem(HorizonItems.GOLDEN_PAXEL.get());
+        handheldItem(HorizonItems.IRON_PAXEL.get());
+        handheldItem(HorizonItems.DIAMOND_PAXEL.get());
+        handheldItem(HorizonItems.NETHERITE_PAXEL.get());
+        handheldItem(BattleCompatItems.STEEL_PAXEL.get());
+        handheldItem(BattleCompatItems.ENDERIUM_PAXEL.get());
     }
 
     // METHODS

@@ -8,6 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
+import net.teamarcana.battlements.init.BattleItems;
+import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 import net.teamarcana.horizons.init.HorizonItems;
 import net.teamarcana.horizons.recipe.BackpackColoring;
 
@@ -70,6 +72,19 @@ public class HorizonRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
                 .save(output);
         SpecialRecipeBuilder.special(BackpackColoring::new).save(output, "backpack_coloring");
+
+        // paxels
+        paxelRecipe(HorizonItems.WOODEN_PAXEL.get(), Ingredient.of(Items.WOODEN_PICKAXE), Ingredient.of(Items.WOODEN_AXE), Ingredient.of(Items.WOODEN_SHOVEL), Items.STICK, output);
+        paxelRecipe(HorizonItems.STONE_PAXEL.get(), Ingredient.of(Items.STONE_PICKAXE), Ingredient.of(Items.STONE_AXE), Ingredient.of(Items.STONE_SHOVEL), Items.STONE_PICKAXE, output);
+        paxelRecipe(HorizonItems.GOLDEN_PAXEL.get(), Ingredient.of(Items.GOLDEN_PICKAXE), Ingredient.of(Items.GOLDEN_AXE), Ingredient.of(Items.GOLDEN_SHOVEL), Items.GOLD_INGOT, output);
+        paxelRecipe(HorizonItems.IRON_PAXEL.get(), Ingredient.of(Items.IRON_PICKAXE), Ingredient.of(Items.IRON_AXE), Ingredient.of(Items.IRON_SHOVEL), Items.IRON_INGOT, output);
+        paxelRecipe(BattleCompatItems.STEEL_PAXEL.get(), Ingredient.of(BattleItems.STEEL_PICKAXE), Ingredient.of(BattleItems.STEEL_AXE), Ingredient.of(BattleItems.STEEL_SHOVEL), Items.STICK, output);
+        paxelRecipe(HorizonItems.DIAMOND_PAXEL.get(), Ingredient.of(Items.DIAMOND_PICKAXE), Ingredient.of(Items.DIAMOND_AXE), Ingredient.of(Items.DIAMOND_SHOVEL), Items.DIAMOND, output);
+        paxelRecipe(HorizonItems.NETHERITE_PAXEL.get(), Ingredient.of(Items.NETHERITE_PICKAXE), Ingredient.of(Items.NETHERITE_AXE), Ingredient.of(Items.NETHERITE_SHOVEL), Items.NETHERITE_INGOT, output);
+        paxelRecipe(BattleCompatItems.ENDERIUM_PAXEL.get(), Ingredient.of(BattleItems.ENDERIUM_PICKAXE), Ingredient.of(BattleItems.ENDERIUM_AXE), Ingredient.of(BattleItems.ENDERIUM_SHOVEL), BattleItems.ENDERIUM_INGOT, output);
+
+        netheriteSmithing(output, HorizonItems.DIAMOND_PAXEL.get(), RecipeCategory.TOOLS, HorizonItems.NETHERITE_PAXEL.get());
+        netheriteSmithing(output, HorizonItems.DIAMOND_PAXEL.get(), RecipeCategory.TOOLS, BattleCompatItems.ENDERIUM_PAXEL.get());
     }
 
     public static void smokingRecipe(RecipeOutput output,  List<ItemLike> pIngredients,  RecipeCategory pCategory,  ItemLike pResult,  float pExperience,  int cookingTime,  String pGroup) {
@@ -176,5 +191,17 @@ public class HorizonRecipeProvider extends RecipeProvider {
                     .unlockedBy("has_needed_dye", has(dye))
                     .save(output, "dye_" + getItemName(item));
         }
+    }
+    public static void paxelRecipe(ItemLike result, Ingredient pickaxe, Ingredient axe, Ingredient shovel, ItemLike unlockItem, RecipeOutput output){
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
+                .pattern("ASP")
+                .pattern(" | ")
+                .pattern(" | ")
+                .define('S', shovel)
+                .define('P', pickaxe)
+                .define('A', axe)
+                .define('|', Items.STICK)
+                .unlockedBy(getHasName(unlockItem), has(unlockItem))
+                .save(output);
     }
 }

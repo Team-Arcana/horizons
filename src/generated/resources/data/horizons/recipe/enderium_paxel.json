@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "battlements:enderium_axe"
+    },
+    "P": {
+      "item": "battlements:enderium_pickaxe"
+    },
+    "S": {
+      "item": "battlements:enderium_shovel"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "ASP",
+    " | ",
+    " | "
+  ],
+  "result": {
+    "count": 1,
+    "id": "horizons:enderium_paxel"
+  }
+}

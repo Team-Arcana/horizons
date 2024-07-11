@@ -39,5 +39,14 @@
   "item.horizons.pink_backpack": "Pink Backpack",
   "item.horizons.rose_backpack": "Rose Backpack",
   "key.categories.horizons": "Horizons",
-  "key.horizons.open_backpack": "Open Backpack"
+  "key.horizons.open_backpack": "Open Backpack",
+
+  "item.horizons.wooden_paxel": "Wooden Paxel",
+  "item.horizons.stone_paxel": "Stone Paxel",
+  "item.horizons.golden_paxel": "Golden Paxel",
+  "item.horizons.iron_paxel": "Iron Paxel",
+  "item.horizons.steel_paxel": "Steel Paxel",
+  "item.horizons.diamond_paxel": "Diamond Paxel",
+  "item.horizons.netherite_paxel": "Netherite Paxel",
+  "item.horizons.enderium_paxel": "Enderium Paxel"
 }

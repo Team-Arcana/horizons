@@ -1,4 +1,4 @@
-// 1.21	2024-07-08T09:21:13.7310935	Item Models: horizons
+// 1.21	2024-07-11T15:29:08.0892101	Item Models: horizons
 aff4dc7f7c8fa2505cdca98488847e452a908894 assets/horizons/models/item/backpack.json
 eafa2920c4fce4ef42624c1ff6f60dfcff448f68 assets/horizons/models/item/backpack_held.json
 ef03f09a41b6eeec6f79e7b0ef43ae9312c84c67 assets/horizons/models/item/backpack_inventory.json
@@ -14,6 +14,9 @@ b4903a4d5ad3010bddb95ea72da76cdabdb280d4 assets/horizons/models/item/brown_backp
 f677686dff096878019ae1366460bb1f2cdb6e15 assets/horizons/models/item/cyan_backpack.json
 e0e9e325a007f4939e62b28134fc8d84896f6372 assets/horizons/models/item/cyan_backpack_held.json
 ae159b21ba5193c4e028dbf433b9f18890d6edb4 assets/horizons/models/item/cyan_backpack_inventory.json
+0208cb7bb97f9704db714b45e475c2b3acc24cc7 assets/horizons/models/item/diamond_paxel.json
+7126d3678419dee496fb92079a14d8326cdec4b4 assets/horizons/models/item/enderium_paxel.json
+091581871a168ac20e26a700ea39b8f204fba43e assets/horizons/models/item/golden_paxel.json
 3a41add885c83fa0a7a2e7768a9aaf384e0d4afb assets/horizons/models/item/gray_backpack.json
 1882e2c769e7e02d6a4356184f1b2ce05a69e8c8 assets/horizons/models/item/gray_backpack_held.json
 9581063b30984a5e3eb5ce3c396e33597241c2ee assets/horizons/models/item/gray_backpack_inventory.json
@@ -21,6 +24,7 @@ dc6ca4d1a3572b49690edc2ddc31bc9b65f957f7 assets/horizons/models/item/green_backp
 612f0794623433a8625c4c1a93cd948c63c23f24 assets/horizons/models/item/green_backpack_held.json
 9165ef8d6393eff5cee85de105d3da0b98bf2d4b assets/horizons/models/item/green_backpack_inventory.json
 3e493ee0545b7b13f42a65cff91909848dc11e33 assets/horizons/models/item/horizons_icon.json
+3027090eedfdb47e073f633073b33d2d38523c20 assets/horizons/models/item/iron_paxel.json
 a90d68d2934421b0702ebfa6332d4018d4c893c6 assets/horizons/models/item/light_blue_backpack.json
 782d05f92de17c72d496ac58b3189815f5b18b0f assets/horizons/models/item/light_blue_backpack_held.json
 c3c17c3fb441ded81ab7d29a2be9e72c9762e2cc assets/horizons/models/item/light_blue_backpack_inventory.json
@@ -33,6 +37,7 @@ cad2526d6aad265574aeee2ec62fa175289726e4 assets/horizons/models/item/lime_backpa
 dee61c4fdf97acc7ac6cba6f1d2be8107cebfda9 assets/horizons/models/item/magenta_backpack.json
 b95d1b91066bf6616d81dacff92bdfedd1495d0f assets/horizons/models/item/magenta_backpack_held.json
 5aba01fa51d439189551d13bc02f173f853602aa assets/horizons/models/item/magenta_backpack_inventory.json
+d6882fd6cab97f1d36c33953d01166123dae979c assets/horizons/models/item/netherite_paxel.json
 32f082756e39770e4a6f2683f46a5a93948ec3c3 assets/horizons/models/item/orange_backpack.json
 459fad56a8c22ba5157f0ea330ecbc0a02a1721f assets/horizons/models/item/orange_backpack_held.json
 79b18fb0f4798b2ea7891de7fe42e41c67c84ec8 assets/horizons/models/item/orange_backpack_inventory.json
@@ -45,9 +50,12 @@ b95d1b91066bf6616d81dacff92bdfedd1495d0f assets/horizons/models/item/magenta_bac
 b159d392d0cb251e6b3bb8b2ab27974162fc8ee9 assets/horizons/models/item/red_backpack.json
 f78695b1c2e18f453a61c729923e54ff1eef743c assets/horizons/models/item/red_backpack_held.json
 ee865a42e82dfd1383c58b91794e0d8b80ad85d9 assets/horizons/models/item/red_backpack_inventory.json
+90fc2e1f090ee34958f789fddf2e851f47965434 assets/horizons/models/item/steel_paxel.json
+e030abfdda37d9794516be00bfafa5f049284dd7 assets/horizons/models/item/stone_paxel.json
 1f6387fe3862769f1537962f920129486f6da39e assets/horizons/models/item/white_backpack.json
 e1a69084e97546ed4ab9480f9627f567aef2aeee assets/horizons/models/item/white_backpack_held.json
 8e63790756d0c62851766ef72a8c0ebb776cbdc5 assets/horizons/models/item/white_backpack_inventory.json
+f15c54b84bced44d4ddf3cdf962a7733a4f85d08 assets/horizons/models/item/wooden_paxel.json
 8f12d1726cb59930c94f5c5e17ea256a7cdcab0a assets/horizons/models/item/yellow_backpack.json
 ffb4907e8c7a52e3ed6a0f6b2f9c43dce2afe819 assets/horizons/models/item/yellow_backpack_held.json
 3c6b5ce88073a13909c7ad40c1bcb0e4ab62da83 assets/horizons/models/item/yellow_backpack_inventory.json

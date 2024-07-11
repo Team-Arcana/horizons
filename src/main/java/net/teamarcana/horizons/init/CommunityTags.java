@@ -8,6 +8,11 @@ import net.minecraft.world.level.block.Block;
 
 public class CommunityTags {
 
+    public static TagKey<Item> TOOLS_PAXEL = itemTag("tools/paxel");
+    public static TagKey<Item> TOOLS_PICKAXE = itemTag("tools/pickaxe");
+    public static TagKey<Item> TOOLS_AXE = itemTag("tools/axe");
+    public static TagKey<Item> TOOLS_SHOVEL = itemTag("tools/shovel");
+
     private static TagKey<Item> itemTag(String path){
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
     }

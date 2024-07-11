@@ -3,12 +3,15 @@ package net.teamarcana.horizons.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.teamarcana.horizons.Horizons;
+import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 import net.teamarcana.horizons.compat.curios.CurioTags;
+import net.teamarcana.horizons.init.CommunityTags;
 import net.teamarcana.horizons.init.HorizonItems;
 import net.teamarcana.horizons.init.HorizonTags;
 import org.jetbrains.annotations.Nullable;
@@ -63,5 +66,28 @@ public class HorizonItemTagProvider extends ItemTagsProvider {
 
         // specifically so that backpacks can be equipped on the back slot for curios
         tag(CurioTags.CURIO_BACK).addTag(HorizonTags.Items.BACKPACK);
+
+        tag(CommunityTags.TOOLS_PAXEL).add(
+                HorizonItems.DIAMOND_PAXEL.get(),
+                HorizonItems.NETHERITE_PAXEL.get(),
+                HorizonItems.WOODEN_PAXEL.get(),
+                HorizonItems.IRON_PAXEL.get(),
+                HorizonItems.GOLDEN_PAXEL.get(),
+                HorizonItems.STONE_PAXEL.get()
+        );
+        if(Horizons.isBattlementsHere()){
+            tag(CommunityTags.TOOLS_PAXEL).add(
+                    BattleCompatItems.STEEL_PAXEL.get(),
+                    BattleCompatItems.ENDERIUM_PAXEL.get()
+            );
+        }
+        tag(CommunityTags.TOOLS_PICKAXE).addTag(CommunityTags.TOOLS_PAXEL);
+        tag(CommunityTags.TOOLS_AXE).addTag(CommunityTags.TOOLS_PAXEL);
+        tag(CommunityTags.TOOLS_SHOVEL).addTag(CommunityTags.TOOLS_PAXEL);
+
+        tag(Tags.Items.TOOLS).addTag(CommunityTags.TOOLS_PAXEL);
+        tag(ItemTags.PICKAXES).addTag(CommunityTags.TOOLS_PAXEL);
+        tag(ItemTags.AXES).addTag(CommunityTags.TOOLS_PAXEL);
+        tag(ItemTags.SHOVELS).addTag(CommunityTags.TOOLS_PAXEL);
     }
 }

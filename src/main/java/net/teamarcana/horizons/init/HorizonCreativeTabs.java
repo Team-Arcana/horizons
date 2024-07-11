@@ -12,6 +12,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.teamarcana.horizons.Horizons;
+import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class HorizonCreativeTabs {
@@ -22,6 +23,19 @@ public class HorizonCreativeTabs {
             .withTabsBefore(CreativeModeTabs.INGREDIENTS)
             .icon(() -> HorizonItems.CREATIVE_ICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
+                output.accept(HorizonItems.WOODEN_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.STONE_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.GOLDEN_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.IRON_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                if(Horizons.isBattlementsHere()){
+                    output.accept(BattleCompatItems.STEEL_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                }
+                output.accept(HorizonItems.DIAMOND_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                output.accept(HorizonItems.NETHERITE_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                if(Horizons.isBattlementsHere()){
+                    output.accept(BattleCompatItems.ENDERIUM_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                }
+
                 output.accept(HorizonItems.BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 output.accept(HorizonItems.WHITE_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 output.accept(HorizonItems.LIGHT_GRAY_BACKPACK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
