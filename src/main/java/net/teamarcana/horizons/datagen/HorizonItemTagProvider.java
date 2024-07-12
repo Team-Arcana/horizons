@@ -89,5 +89,13 @@ public class HorizonItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES).addTag(CommunityTags.TOOLS_PAXEL);
         tag(ItemTags.AXES).addTag(CommunityTags.TOOLS_PAXEL);
         tag(ItemTags.SHOVELS).addTag(CommunityTags.TOOLS_PAXEL);
+
+        tag(HorizonTags.Items.HOG_FOOD).add(
+                Items.BROWN_MUSHROOM,
+                Items.RED_MUSHROOM,
+                Items.CRIMSON_FUNGUS,
+                Items.WARPED_FUNGUS,
+                Items.CARROT
+        );
     }
 }

@@ -48,5 +48,11 @@
   "item.horizons.steel_paxel": "Steel Paxel",
   "item.horizons.diamond_paxel": "Diamond Paxel",
   "item.horizons.netherite_paxel": "Netherite Paxel",
-  "item.horizons.enderium_paxel": "Enderium Paxel"
+  "item.horizons.enderium_paxel": "Enderium Paxel",
+
+  "//SPAWN EGGS": "",
+  "item.horizons.hog_spawn_egg": "Hog Spawn Egg",
+
+  "//ENTITIES": "",
+  "entity.horizons.hog": "Hog"
 }

@@ -20,7 +20,6 @@ public class HorizonCreativeTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> HORIZONS_TAB = CREATIVE_MODE_TABS.register("horizons", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.horizons")) //The language key for the title of your CreativeModeTab
-            .withTabsBefore(CreativeModeTabs.INGREDIENTS)
             .icon(() -> HorizonItems.CREATIVE_ICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(HorizonItems.WOODEN_PAXEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -58,6 +57,9 @@ public class HorizonCreativeTabs {
 
     @SubscribeEvent
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)){
+            event.accept(HorizonItems.HOG_SPAWN_EGG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        }
     }
 
     public static void register(IEventBus eventBus){ CREATIVE_MODE_TABS.register(eventBus); }

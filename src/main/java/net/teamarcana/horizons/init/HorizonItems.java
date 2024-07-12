@@ -49,6 +49,10 @@ public class HorizonItems {
     public static final DeferredItem<BackpackItem> RED_BACKPACK = registerBackpackItem(HorizonBlocks.RED_BACKPACK, DyeColor.RED);
     public static final DeferredItem<BackpackItem> BLACK_BACKPACK = registerBackpackItem(HorizonBlocks.BLACK_BACKPACK, DyeColor.BLACK);
 
+    // SPAWN EGGS
+    public static final DeferredItem<SpawnEggItem> HOG_SPAWN_EGG = ITEMS.register("hog_spawn_egg",
+            () -> new SpawnEggItem(HorizonEntities.HOG.get(), 0x814a2d, 0x573025, new Item.Properties()));
+
     public static void register(IEventBus eventBus){ ITEMS.register(eventBus); }
 
     // stuff specifically for registering backpack items

@@ -6,4 +6,6 @@ import net.teamarcana.horizons.Horizons;
 
 public class HorizonModelLayers {
     public static final ModelLayerLocation BACKPACK = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, "backpack"), "main");
+    public static final ModelLayerLocation HOG = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, "hog"), "main");
+    public static final ModelLayerLocation HOG_SADDLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, "hog"), "saddle");
 }

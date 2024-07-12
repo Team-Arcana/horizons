@@ -21,6 +21,7 @@ public class HorizonTags {
     public static class Items {
         public static TagKey<Item> BACKPACK_BLACKLIST = tag("item/backpack_blacklist");
         public static TagKey<Item> BACKPACK = tag("item/backpack");
+        public static TagKey<Item> HOG_FOOD = tag("item/hog_food");
 
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Horizons.MOD_ID, name));

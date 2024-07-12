@@ -4,15 +4,15 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.teamarcana.horizons.client.entity.HogModel;
+import net.teamarcana.horizons.client.renderer.HogRenderer;
 import net.teamarcana.horizons.compat.battlements.BattleCompatItems;
 import net.teamarcana.horizons.compat.curios.BackpackCurio;
 import net.teamarcana.horizons.compat.curios.client.renderer.BackpackCurioModelRenderer;
@@ -20,7 +20,6 @@ import net.teamarcana.horizons.client.renderer.BackpackModel;
 import net.teamarcana.horizons.client.screen.BackpackScreen;
 import net.teamarcana.horizons.init.*;
 import net.teamarcana.horizons.item.BackpackItem;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -36,9 +35,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Horizons.MOD_ID)
@@ -66,6 +63,7 @@ public class Horizons
         HorizonBlockEntityTypes.register(modEventBus);
         HorizonMenuTypes.register(modEventBus);
         HorizonRecipeSerializers.register(modEventBus);
+        HorizonEntities.register(modEventBus);
 
         registerKeyBindings();
 
@@ -106,6 +104,7 @@ public class Horizons
             // Some client setup code
             //LOGGER.info("HELLO FROM CLIENT SETUP");
             //LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            EntityRenderers.register(HorizonEntities.HOG.get(), HogRenderer::new);
         }
 
         @SubscribeEvent
@@ -116,6 +115,8 @@ public class Horizons
         @SubscribeEvent
         public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event){
             event.registerLayerDefinition(HorizonModelLayers.BACKPACK, ()->  BackpackModel.createBackpackLayer(CubeDeformation.NONE));
+            event.registerLayerDefinition(HorizonModelLayers.HOG, HogModel::createBodyLayer);
+            event.registerLayerDefinition(HorizonModelLayers.HOG_SADDLE, HogModel::createBodyLayer);
         }
 
     }

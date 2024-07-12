@@ -1,4 +1,4 @@
-// 1.21	2024-07-11T15:29:08.0882093	Tags for minecraft:item mod id horizons
+// 1.21	2024-07-12T14:07:04.5832938	Tags for minecraft:item mod id horizons
 2098017cf90c84699b164f59e03d9b80b15f992c data/curios/tags/item/back.json
 ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/c/tags/item/tools.json
 ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/c/tags/item/tools/axe.json
@@ -7,6 +7,7 @@ ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/c/tags/item/tools/pickaxe.json
 ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/c/tags/item/tools/shovel.json
 d46be459939df958712ede699c63e4d1f62a594a data/horizons/tags/item/item/backpack.json
 799f1e423cc09eab3d8b9c5cad6b3f97c744e833 data/horizons/tags/item/item/backpack_blacklist.json
+b0c674c62c9c351d256d7cb2b520fb48443419ce data/horizons/tags/item/item/hog_food.json
 ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/minecraft/tags/item/axes.json
 ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/minecraft/tags/item/pickaxes.json
 ed87013152d08e3cb23487f0ff0ae34466dec5d1 data/minecraft/tags/item/shovels.json

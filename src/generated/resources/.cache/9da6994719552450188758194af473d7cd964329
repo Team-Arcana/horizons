@@ -1,4 +1,4 @@
-// 1.21	2024-07-11T15:29:08.0892101	Item Models: horizons
+// 1.21	2024-07-12T14:27:36.8568926	Item Models: horizons
 aff4dc7f7c8fa2505cdca98488847e452a908894 assets/horizons/models/item/backpack.json
 eafa2920c4fce4ef42624c1ff6f60dfcff448f68 assets/horizons/models/item/backpack_held.json
 ef03f09a41b6eeec6f79e7b0ef43ae9312c84c67 assets/horizons/models/item/backpack_inventory.json
@@ -23,6 +23,7 @@ ae159b21ba5193c4e028dbf433b9f18890d6edb4 assets/horizons/models/item/cyan_backpa
 dc6ca4d1a3572b49690edc2ddc31bc9b65f957f7 assets/horizons/models/item/green_backpack.json
 612f0794623433a8625c4c1a93cd948c63c23f24 assets/horizons/models/item/green_backpack_held.json
 9165ef8d6393eff5cee85de105d3da0b98bf2d4b assets/horizons/models/item/green_backpack_inventory.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/horizons/models/item/hog_spawn_egg.json
 3e493ee0545b7b13f42a65cff91909848dc11e33 assets/horizons/models/item/horizons_icon.json
 3027090eedfdb47e073f633073b33d2d38523c20 assets/horizons/models/item/iron_paxel.json
 a90d68d2934421b0702ebfa6332d4018d4c893c6 assets/horizons/models/item/light_blue_backpack.json

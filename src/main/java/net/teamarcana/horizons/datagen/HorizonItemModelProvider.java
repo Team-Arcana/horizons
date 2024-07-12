@@ -79,6 +79,9 @@ public class HorizonItemModelProvider extends ItemModelProvider {
         handheldItem(HorizonItems.NETHERITE_PAXEL.get());
         handheldItem(BattleCompatItems.STEEL_PAXEL.get());
         handheldItem(BattleCompatItems.ENDERIUM_PAXEL.get());
+
+        // SPAWN EGGS
+        withExistingParent(HorizonItems.HOG_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
     }
 
     // METHODS
