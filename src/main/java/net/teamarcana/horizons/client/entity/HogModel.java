@@ -5,11 +5,14 @@ package net.teamarcana.horizons.client.entity;// Made with Blockbench 4.10.3
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.animation.definitions.CamelAnimation;
 import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
+import net.teamarcana.horizons.entity.Hog;
+import net.teamarcana.horizons.init.HorizonAnimationDefinitions;
 
 public class HogModel<T extends Entity> extends AgeableHierarchicalModel<T> {
 	private final ModelPart hog;
@@ -49,8 +52,12 @@ public class HogModel<T extends Entity> extends AgeableHierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animateWalk(HorizonAnimationDefinitions.HOG_WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
+		this.animate(((Hog) entity).sitAnimationState, HorizonAnimationDefinitions.HOG_LAY, ageInTicks, 1.0F);
+		this.animate(((Hog) entity).idleAnimationState, HorizonAnimationDefinitions.HOG_IDLE, ageInTicks, 1.0F);
+		this.animate(((Hog) entity).runAnimationState, HorizonAnimationDefinitions.HOG_DASH, ageInTicks, 1.0F);
 	}
 
 	@Override

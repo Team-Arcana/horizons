@@ -14,7 +14,7 @@ public class HorizonEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(Registries.ENTITY_TYPE, Horizons.MOD_ID);
 
-    public static final Supplier<EntityType<Hog>> HOG = ENTITY_TYPES.register("hog", () -> registerEntity(EntityType.Builder.of(Hog::new, MobCategory.CREATURE).sized(1.6F, 1.8F), "hog"));
+    public static final Supplier<EntityType<Hog>> HOG = ENTITY_TYPES.register("hog", () -> registerEntity(EntityType.Builder.of(Hog::new, MobCategory.CREATURE).sized(1, 1), "hog"));
 
     private static EntityType registerEntity(EntityType.Builder builder, String entityName) {
         return builder.build(entityName);

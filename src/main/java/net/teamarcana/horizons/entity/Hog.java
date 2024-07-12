@@ -32,15 +32,35 @@ import javax.annotation.Nullable;
 
 public class Hog extends Animal{
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Hog.class, EntityDataSerializers.LONG);
-    public final AnimationState sniffingAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitPoseAnimationState = new AnimationState();
-    public final AnimationState sitUpAnimationState = new AnimationState();
+
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState walkAnimationState = new AnimationState();
+    public final AnimationState sniffAnimationState = new AnimationState();
+    public final AnimationState sitAnimationState = new AnimationState();
+    public final AnimationState runAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
     public Hog(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(this.level().isClientSide()){
+            setupAnimationStates();
+        }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float pPartialTick) {
+        float f;
+        if (this.getPose() == Pose.STANDING && !this.runAnimationState.isStarted()) {
+            f = Math.min(pPartialTick * 6.0F, 1.0F);
+        } else {
+            f = 0.0F;
+        }
+        this.walkAnimation.update(f, 0.2F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -180,23 +200,14 @@ public class Hog extends Animal{
         }
 
         if (this.isVisuallySittingDown()) {
-            this.sitUpAnimationState.stop();
             if (this.isVisuallySittingDown()) {
                 this.sitAnimationState.startIfStopped(this.tickCount);
-                this.sitPoseAnimationState.stop();
             } else {
                 this.sitAnimationState.stop();
-                this.sitPoseAnimationState.startIfStopped(this.tickCount);
             }
         } else {
             this.sitAnimationState.stop();
-            this.sitPoseAnimationState.stop();
-            this.sitUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
-    }
-
-    private void resetAnimations() {
-        this.sniffingAnimationState.stop();
     }
 
     private Hog onScentingStart() {
