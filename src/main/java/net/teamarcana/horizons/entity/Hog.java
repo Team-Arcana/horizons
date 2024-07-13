@@ -2,7 +2,6 @@ package net.teamarcana.horizons.entity;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,19 +9,20 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.teamarcana.horizons.init.HorizonEntities;
@@ -39,6 +39,9 @@ public class Hog extends Animal{
     public final AnimationState sitAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private static final int SITDOWN_DURATION_TICKS = 40;
+    private static final int STANDUP_DURATION_TICKS = 52;
+    private static final int IDLE_MINIMAL_DURATION_TICKS = 80;
 
     public Hog(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -50,6 +53,12 @@ public class Hog extends Animal{
         if(this.level().isClientSide()){
             setupAnimationStates();
         }
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @org.jetbrains.annotations.Nullable SpawnGroupData pSpawnGroupData) {
+        this.resetLastPoseChangeTickToFullStand(pLevel.getLevel().getGameTime());
+        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData);
     }
 
     @Override
@@ -65,10 +74,9 @@ public class Hog extends Animal{
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 20)
-                .add(Attributes.MOVEMENT_SPEED, 0.15f)
+                .add(Attributes.MAX_HEALTH, 15)
+                .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.4F)
-                .add(Attributes.FOLLOW_RANGE, 6)
                 .add(Attributes.STEP_HEIGHT, 1);
     }
 
@@ -103,18 +111,12 @@ public class Hog extends Animal{
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, p_336182_ -> p_336182_.is(Items.CARROT_ON_A_STICK), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, p_335406_ -> p_335406_.is(ItemTags.PIG_FOOD), false));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, item -> item.is(HorizonTags.Items.HOG_FOOD), false));
-    }
-
-    public boolean isTempted() {
-        return this.brain.getMemory(MemoryModuleType.IS_TEMPTED).orElse(false);
-    }
-    public boolean canSniff() {
-        return !this.isTempted() && !this.isPanicking() && !this.isInWater() && !this.isInLove() && this.onGround() && !this.isPassenger() && !this.isLeashed();
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
     public boolean refuseToMove() {
@@ -123,6 +125,11 @@ public class Hog extends Animal{
     public boolean isHogSitting() {
         return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
     }
+
+    public boolean isHogVisuallySitting() {
+        return this.getPoseTime() < 0L != this.isHogSitting();
+    }
+
     public boolean isInPoseTransition() {
         long i = this.getPoseTime();
         return i < (long)(this.isHogSitting() ? 40 : 52);
@@ -134,7 +141,6 @@ public class Hog extends Animal{
 
     public void sitDown() {
         if (!this.isHogSitting()) {
-            this.makeSound(SoundEvents.CAMEL_SIT);
             this.setPose(Pose.SITTING);
             this.gameEvent(GameEvent.ENTITY_ACTION);
             this.resetLastPoseChangeTick(-this.level().getGameTime());
@@ -143,7 +149,6 @@ public class Hog extends Animal{
 
     public void standUp() {
         if (this.isHogSitting()) {
-            this.makeSound(SoundEvents.CAMEL_STAND);
             this.setPose(Pose.STANDING);
             this.gameEvent(GameEvent.ENTITY_ACTION);
             this.resetLastPoseChangeTick(this.level().getGameTime());
@@ -199,7 +204,7 @@ public class Hog extends Animal{
             this.idleAnimationTimeout--;
         }
 
-        if (this.isVisuallySittingDown()) {
+        if (this.isHogVisuallySitting()) {
             if (this.isVisuallySittingDown()) {
                 this.sitAnimationState.startIfStopped(this.tickCount);
             } else {
